@@ -8,7 +8,9 @@
 
 </head>
 <body>
-<header>I Know You Know <span class="psych">Psych</span> Trivia</header>
+<header>
+	<h1 class="text-center">I Know You Know <span class="psych">Psych</span> Trivia </h1>
+</header>
 
 <div class="container">
 	<div class="row">
@@ -17,8 +19,8 @@
 		<div class="col-md-6 incorrect">	
 		</div>
 	</div>
-	<div>
-		<button type="button" class="btn btn-warning centered">Wanna play again?</button>
+	<div id="replay">
+		
 	</div>
 	<div class="row">
 		<div class="gameboard">
@@ -26,8 +28,12 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-6 centered timer">
-			
+		<button class="btn response" data-truth="true">True</button>
+		<button class="btn response" data-truth="false">False</button>
+	</div>
+	<div class="row">
+		<div class="col-md-12 centered timer">
+			<p>:</p>
 		</div>
 	</div>
 
@@ -36,6 +42,8 @@
 
 	
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="assets/javascript/app.js"></script>
 
 </body>
 </html>
