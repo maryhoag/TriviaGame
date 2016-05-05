@@ -28,45 +28,24 @@ var app = {
 	newQuestion: function() {
 		//setTimeout($(".gameboard").html(app.questions[app.index]), (10 * 1000));
 		$(".gameboard").html(app.questions[app.index]); //(10 * 1000));
+		//console.log(app.questions[app.index]);
 		//setTimeout
 	},
 
-	setBoolean: function() {
-		app.trueness = $(this).attr("data-truth");
-		clearInterval(app.starting);
-	},
-
-	count: function() {
-		this.counter--;
-		$(".timer").html(app.counter);
-	},
-	//counts with var to skip
-	start: function() {
-		var starting = setInterval(app.count, 1000);
-	},
-	//sets replay button
-	again: function() {
-		$("#replay").append('<button type="button" class="btn btn-warning centered">Wanna play again?</button>');
-	},
-
-	game: function() {
-		//use index for i here, or will i want them seperate
-		//i've hard coded 5 here: fix or add a random question generator
-		for(app.index; app.index < app.questions.length; app.index++) {
-			//ask question
-			app.newQuestion();
-			app.count();
-			app.start(); 
-			$(".response").click(app.setBoolean());
-			
-			console.log(this);
-			if(app.trueness = true) {
-				setTimeout(function() {
+	correctAnswer: function() {
+		setTimeout(function() {
 					$(".gameboard").html("Correct! What are you, psychic?");
 					app.wins++;
 					app.counter = 10;
 					$(".correct").html("# Correct: " + app.wins);
 				}, (5 * 1000));
+	},
+
+	setBoolean: function() {
+		app.trueness = $(this).attr("data-truth");
+		clearInterval(app.starting);
+		if(app.trueness = true) {
+				app.correctAnswer();
 			}
 			else {
 				setTimeout(function() {
@@ -77,8 +56,41 @@ var app = {
 				}, (5 * 1000));
 
 			}
+	},
+
+	count: function() {
+		var starting = setInterval(function() {
+			app.counter--;
+			$(".timer").html(":" + app.counter);
+		}, (5 * 1000));
+	},
+	//counts with var to skip
+	//start: function() {
+		//var starting = setInterval(app.count, 1000);
+	//},
+	//sets replay button
+	again: function() {
+		$("#replay").append('<button type="button" class="btn btn-warning centered">Wanna play again?</button>');
+	},
+
+	game: function() {
+		//use index for i here, or will i want them seperate
+		//i've hard coded 5 here: fix or add a random question generator
+		setInterval(function() {
+			for(app.index; app.index < app.questions.length; app.index++) {
+			//ask question
+				app.newQuestion();
+				app.count();
+				//app.start(); 
+				$(".response").on("click", app.setBoolean());
+				}
+		}, 1000);
+			
+
+
+			console.log(this);
+			app.again();
 		}
-	}
 };
 
 app.game();
