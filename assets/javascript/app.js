@@ -4,7 +4,7 @@ $(document).ready(function() {
 	var app = {
 	// will these need to be outside the app object?
 	counter: 10,
-	index: 0,
+	
 	wins: 0,
 	losses: 0,
 
@@ -73,7 +73,7 @@ $(document).ready(function() {
 		//use index for i here, or will i want them seperate
 		//i've hard coded 5 here: fix or add a random question generator
 		
-		for(app.index; app.index < app.questions.length; app.index++) {
+		for(var i = 0; i < app.questions.length; i++) {
 			//ask question
 			var trueness;
 			this.newQuestion();
@@ -83,7 +83,7 @@ $(document).ready(function() {
 			});
 				//console.log(trueness);
 			setTimeout(function(trueness) {	
-				if(trueness == app.answers[app.index]) {
+				if(trueness == app.answers[i]) {
 					app.correctAnswer();
 					console.log(trueness);
 				}
