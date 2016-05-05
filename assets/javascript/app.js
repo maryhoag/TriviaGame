@@ -3,7 +3,7 @@ var app = {
 	// will these need to be outside the app object?
 	counter: 10,
 	index: 0,
-	trueness: false,
+	trueness: true,
 	wins: 0,
 	losses: 0,
 
@@ -45,7 +45,9 @@ var app = {
 		app.trueness = $(this).attr("data-truth");
 		clearInterval(app.starting);
 		if(app.trueness = true) {
-				app.correctAnswer();
+			clearInterval(app.counting);
+			app.correctAnswer();
+
 			}
 			else {
 				setTimeout(function() {
@@ -57,17 +59,16 @@ var app = {
 
 			}
 	},
-
 	count: function() {
-		var starting = setInterval(function() {
 			app.counter--;
-			$(".timer").html(":" + app.counter);
-		}, (5 * 1000));
-	},
+			$(".timer").html("Time remaining:" + app.counter);
+		},
 	//counts with var to skip
-	//start: function() {
-		//var starting = setInterval(app.count, 1000);
-	//},
+	start: function() {
+		var starting = setInterval(app.count, 1000);
+	},
+
+	
 	//sets replay button
 	again: function() {
 		$("#replay").append('<button type="button" class="btn btn-warning centered">Wanna play again?</button>');
@@ -76,19 +77,24 @@ var app = {
 	game: function() {
 		//use index for i here, or will i want them seperate
 		//i've hard coded 5 here: fix or add a random question generator
-		setInterval(function() {
-			for(app.index; app.index < app.questions.length; app.index++) {
+		
+		for(app.index; app.index < app.questions.length; app.index++) {
 			//ask question
-				app.newQuestion();
-				app.count();
-				//app.start(); 
-				$(".response").on("click", app.setBoolean());
+				//setTimeout(function() {
+					app.count();
+					app.newQuestion();
+					//app.count();
+					//app.start(); 
+					$(".response").on("click", function() {
+						console.log("clicked");
+					});
+				//}, 1000);
+				
 				}
-		}, 1000);
 			
 
-
-			console.log(this);
+			clearInterval(app.counting);
+			//console.log(this);
 			app.again();
 		}
 };
