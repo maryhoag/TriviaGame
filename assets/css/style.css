@@ -1,11 +1,17 @@
-
-
-.container {
-	background-image: url(../images/pineapples.jpg);
+body#background {
+  background: url('../images/pineapples.jpg') no-repeat 50% 50% fixed; 
+  background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
 }
 	
 
-.jumbotron {
+.jumbotron, .correct, .incorrect, .timer {
 	background-color: #ffffe0;
-	color: #green;
 }
+
+h2 {
+	color: green;			
+}
+
