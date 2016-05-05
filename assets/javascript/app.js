@@ -1,5 +1,7 @@
 //
-var app = {
+$(document).ready(function() {
+
+	var app = {
 	// will these need to be outside the app object?
 	counter: 10,
 	index: 0,
@@ -27,13 +29,14 @@ var app = {
 	newQuestion: function() {
 		//setTimeout($(".gameboard").html(app.questions[app.index]), (10 * 1000));
 		$(".gameboard").html(app.questions[app.index]);
+		app.start();
 	},
 
 	correctAnswer: function() {
 		$(".gameboard").html("Correct! What are you, psychic?");
-					app.wins++;
-					app.counter = 10;
-					$(".correct").html("# Correct: " + app.wins);
+		app.wins++;
+		app.counter = 10;
+		$(".correct").html("# Correct: " + app.wins);
 	},
 
 	incorrectAnswer: function() {
@@ -43,15 +46,23 @@ var app = {
 			$(".incorrect").html("# Incorrect: " + app.losses);
 	},
 
-	count: function() {
-			app.counter--;
-			$(".timer").html("Time remaining:" + app.counter);
-		},
-	//counts with var to skip
 	start: function() {
-		var starting = setInterval(app.count, 1000);
+		 setInterval(app.count, 1000);
+		 $(".timer").html("Time remaining:" + app.counter);
 	},
 
+	count: function() {
+			app.counter--;
+			//$(".timer").html("Time remaining:" + app.counter);
+			if(app.counter === 0) {
+				app.stop()
+			}
+	},
+	
+	//sop counting
+	stop: function() {
+		clearInterval(app.count);
+	},
 	
 	//sets replay button
 	again: function() {
@@ -64,30 +75,31 @@ var app = {
 		
 		for(app.index; app.index < app.questions.length; app.index++) {
 			//ask question
+			var trueness;
 			this.newQuestion();
-				var loop = setTimeout(function() {
-					console.log("hi")
-				
-				}, (5 * 1000));
-			}
 			$(".response").click(function() {
-				console.log("message");
-				var trueness = $(this).data("truth");
-				console.log(trueness);
-				if(trueness == false) {
+				//console.log("message");
+				return trueness = $(this).data("truth");
+			});
+				//console.log(trueness);
+			setTimeout(function(trueness) {	
+				if(trueness == app.answers[app.index]) {
+					app.correctAnswer();
+					console.log(trueness);
+				}
+				else {
 					app.incorrectAnswer();
 				}
-				else{
-					app.correctAnswer();
-				}
-			})
-			clearInterval(app.counting);
-			clearInterval(app.game.loop);
+			}, 10 * 1000);
+		}
+		clearInterval(app.counting);
 			//console.log(this);
-			app.again();
+		app.again();
 	}
-};
+	};
 
-app.game();
+	app.game();
+
+});
 
 	
