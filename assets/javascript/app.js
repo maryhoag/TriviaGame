@@ -78,26 +78,35 @@ $(document).ready(function() {
 			//ask question
 			var trueness;
 			app.newQuestion();
-			$(".response").click(function() {
-				//console.log("message");
-				return trueness = $(this).data("truth");
-			});
+			var pause = setInterval(function() {
+
+				$(".response").click(function() {
+					console.log("message");
+					return trueness = $(this).data("truth");
+				});
 				//console.log(trueness);
-			setTimeout(function(trueness) {	
-				if(trueness == app.answers[app.index]) {
-					app.correctAnswer();
-					console.log(trueness);
-				}
-				else {
-					app.incorrectAnswer();
-				}
+				setTimeout(function(trueness) {	
+					if(trueness == app.answers[app.index]) {
+						app.correctAnswer();
+						console.log(trueness);
+					}
+					else {
+						app.incorrectAnswer();
+					}
+				}, 10 * 1000);
 			}, 10 * 1000);
-		}
+
+
 		clearInterval(app.counting);
-			//console.log(this);
-		app.again();
+			console.log(this);
+		}
+
+		
+		
+	setTimeout(app.again(), 10 * 1000);
 	}
-	};
+
+};
 
 	app.game();
 
