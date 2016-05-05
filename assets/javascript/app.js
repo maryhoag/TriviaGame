@@ -3,7 +3,6 @@ var app = {
 	// will these need to be outside the app object?
 	counter: 10,
 	index: 0,
-	trueness: true,
 	wins: 0,
 	losses: 0,
 
@@ -24,41 +23,26 @@ var app = {
 	true, true, false, false, true, true, true, false, false, false
 	],
 
-	//delivers next qustion after delay
+	//delivers next qustion 
 	newQuestion: function() {
 		//setTimeout($(".gameboard").html(app.questions[app.index]), (10 * 1000));
-		$(".gameboard").html(app.questions[app.index]); //(10 * 1000));
-		//console.log(app.questions[app.index]);
-		//setTimeout
+		$(".gameboard").html(app.questions[app.index]);
 	},
 
 	correctAnswer: function() {
-		setTimeout(function() {
-					$(".gameboard").html("Correct! What are you, psychic?");
+		$(".gameboard").html("Correct! What are you, psychic?");
 					app.wins++;
 					app.counter = 10;
 					$(".correct").html("# Correct: " + app.wins);
-				}, (5 * 1000));
 	},
 
-	setBoolean: function() {
-		app.trueness = $(this).attr("data-truth");
-		clearInterval(app.starting);
-		if(app.trueness = true) {
-			clearInterval(app.counting);
-			app.correctAnswer();
-
-			}
-			else {
-				setTimeout(function() {
-					$(".gameboard").html("Wrong! You're not exactly hyperattentive.");
-					app.losses++;
-					app.counter = 10;
-					$(".incorrect").html("# Incorrect: " + app.losses);
-				}, (5 * 1000));
-
-			}
+	incorrectAnswer: function() {
+			$(".gameboard").html("Wrong! Some psychic detective you are!");
+			app.losses++;
+			app.counter = 10;
+			$(".incorrect").html("# Incorrect: " + app.losses);
 	},
+
 	count: function() {
 			app.counter--;
 			$(".timer").html("Time remaining:" + app.counter);
@@ -80,23 +64,28 @@ var app = {
 		
 		for(app.index; app.index < app.questions.length; app.index++) {
 			//ask question
-				//setTimeout(function() {
-					app.count();
-					app.newQuestion();
-					//app.count();
-					//app.start(); 
-					$(".response").on("click", function() {
-						console.log("clicked");
-					});
-				//}, 1000);
+			this.newQuestion();
+				var loop = setTimeout(function() {
+					console.log("hi")
 				
+				}, (5 * 1000));
+			}
+			$(".response").click(function() {
+				console.log("message");
+				var trueness = $(this).data("truth");
+				console.log(trueness);
+				if(trueness == false) {
+					app.incorrectAnswer();
 				}
-			
-
+				else{
+					app.correctAnswer();
+				}
+			})
 			clearInterval(app.counting);
+			clearInterval(app.game.loop);
 			//console.log(this);
 			app.again();
-		}
+	}
 };
 
 app.game();
