@@ -85,25 +85,28 @@ $(document).ready(function() {
 					return trueness = $(this).data("truth");
 				});
 				//console.log(trueness);
-				setTimeout(function(trueness) {	
-					if(trueness == app.answers[app.index]) {
-						app.correctAnswer();
-						console.log(trueness);
-					}
-					else {
-						app.incorrectAnswer();
-					}
-				}, 10 * 1000);
+					
+				if(trueness == app.answers[app.index]) {
+					app.correctAnswer();
+					console.log(trueness);
+				}
+				else {
+					app.incorrectAnswer();
+				}
+					}, 10 * 1000);
+			setTimeout(function(){
+				console.log("waiting");
 			}, 10 * 1000);
+			}
 
 
 		clearInterval(app.counting);
 			console.log(this);
-		}
+		
+
 
 		
-		
-	setTimeout(app.again(), 10 * 1000);
+		setTimeout(app.again, 10 * 1000);
 	}
 
 };
