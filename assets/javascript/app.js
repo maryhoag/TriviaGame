@@ -4,7 +4,7 @@ $(document).ready(function() {
 	var app = {
 	// will these need to be outside the app object?
 	counter: 10,
-	
+	index: 0,
 	wins: 0,
 	losses: 0,
 
@@ -74,16 +74,17 @@ $(document).ready(function() {
 		//i've hard coded 5 here: fix or add a random question generator
 		
 		for(var i = 0; i < app.questions.length; i++) {
+			app.index = i;
 			//ask question
 			var trueness;
-			this.newQuestion();
+			app.newQuestion();
 			$(".response").click(function() {
 				//console.log("message");
 				return trueness = $(this).data("truth");
 			});
 				//console.log(trueness);
 			setTimeout(function(trueness) {	
-				if(trueness == app.answers[i]) {
+				if(trueness == app.answers[app.index]) {
 					app.correctAnswer();
 					console.log(trueness);
 				}
